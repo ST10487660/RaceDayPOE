@@ -127,6 +127,6 @@ The Part 1 video presentation demonstrates and explains:
 
 YouTube video (unlisted):
 
-`[PASTE YOUR UNLISTED YOUTUBE LINK HERE]`
+https://youtu.be/X8XoADVUu0w
 
 
