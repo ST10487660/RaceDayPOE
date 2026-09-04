@@ -55,7 +55,9 @@ The workflow in `.github/workflows/validate-part1.yml` checks that the required 
 
 After pushing to GitHub, confirm that the workflow completes successfully with a green check.
 
-## CI/CD Screenshot<img width="1448" height="1086" alt="ERD" src="https://github.com/user-attachments/assets/1a57adf6-b762-4aa6-a182-32528baaf088" />
+## CI/CD Screenshot
+<img width="1002" height="464" alt="image" src="https://github.com/user-attachments/assets/a915da3a-146c-4c58-9a76-14d4bd9371ac" />
+
 
 
 
