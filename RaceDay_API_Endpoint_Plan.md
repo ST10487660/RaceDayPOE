@@ -5,6 +5,14 @@
 This document defines the REST API that will be implemented in Part 2. The implementation should closely follow this plan so that the approved database design, API and later MVC application remain consistent.
 
 ### Roles
+## Authentication
+
+RaceDay will use authentication to identify users before allowing access to protected API endpoints. After a successful login, the system will use the authenticated user's role to determine which operations they are allowed to perform.
+
+- Organisers can manage events, categories, enrolments and participant results.
+- Participants can browse events, enrol in event categories and view their own results.
+- Requests to protected endpoints without authentication will return `401 Unauthorized`.
+- Authenticated users who attempt to access functionality outside their role will receive `403 Forbidden`.
 
 - **Organiser:** creates, edits and deletes events; manages categories; captures participant results; views event enrolments.
 - **Participant:** creates an account; browses events; enters an event by selecting a category; views own enrolments; tracks personal results.
