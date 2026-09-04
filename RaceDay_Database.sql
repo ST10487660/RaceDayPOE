@@ -49,6 +49,7 @@ CREATE TABLE dbo.Events
     Description NVARCHAR(500) NULL,
     EventDate DATE NOT NULL,
     Location NVARCHAR(200) NOT NULL,
+    CONSTRAINT CK_Events_Location CHECK (LEN(LTRIM(RTRIM(Location))) > 0),
     MaxParticipants INT NOT NULL
         CONSTRAINT CK_Events_MaxParticipants CHECK (MaxParticipants > 0),
     CreatedAt DATETIME2(0) NOT NULL
