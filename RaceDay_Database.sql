@@ -31,6 +31,7 @@ CREATE TABLE dbo.Users
     FullName NVARCHAR(100) NOT NULL,
     Email NVARCHAR(150) NOT NULL
         CONSTRAINT UQ_Users_Email UNIQUE,
+    CONSTRAINT CK_Users_Email CHECK (Email LIKE '%_@_%._%'),
     PasswordHash NVARCHAR(255) NOT NULL,
     Role NVARCHAR(20) NOT NULL
         CONSTRAINT CK_Users_Role CHECK (Role IN (N'Organiser', N'Participant')),
