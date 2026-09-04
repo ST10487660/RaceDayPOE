@@ -66,7 +66,20 @@ The RaceDay API will follow consistent naming conventions to make the endpoints 
 - HTTP methods will describe the operation instead of including actions such as "create" or "delete" in the route.
 - Route parameters will identify specific resources, for example `/api/events/{id}`.
 - JSON property names will use camelCase.
-  
+
+  ## Error Response Format
+
+When an API request fails, RaceDay will return a clear JSON error response so that the client application can understand what went wrong.
+
+Example:
+
+{
+  "statusCode": 400,
+  "message": "Invalid request data."
+}
+
+Error messages will be kept clear and will not expose sensitive system or database information.
+
 ## Endpoint Table
 
 | HTTP Method | Route | Description | Role Required | Request Body | Expected Response |
