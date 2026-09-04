@@ -45,6 +45,7 @@ CREATE TABLE dbo.Events
         CONSTRAINT PK_Events PRIMARY KEY,
     OrganiserID INT NOT NULL,
     EventName NVARCHAR(150) NOT NULL,
+    CONSTRAINT CK_Events_EventName CHECK (LEN(LTRIM(RTRIM(EventName))) > 0),
     Description NVARCHAR(500) NULL,
     EventDate DATE NOT NULL,
     Location NVARCHAR(200) NOT NULL,
