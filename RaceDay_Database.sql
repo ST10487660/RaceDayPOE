@@ -68,6 +68,7 @@ CREATE TABLE dbo.Categories
         CONSTRAINT PK_Categories PRIMARY KEY,
     CategoryName NVARCHAR(100) NOT NULL
         CONSTRAINT UQ_Categories_Name UNIQUE,
+    CONSTRAINT CK_Categories_Name CHECK (LEN(LTRIM(RTRIM(CategoryName))) > 0),
     Description NVARCHAR(300) NULL
 );
 GO
