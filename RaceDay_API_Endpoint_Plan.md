@@ -16,6 +16,18 @@ RaceDay will use authentication to identify users before allowing access to prot
 
 - **Organiser:** creates, edits and deletes events; manages categories; captures participant results; views event enrolments.
 - **Participant:** creates an account; browses events; enters an event by selecting a category; views own enrolments; tracks personal results.
+- ## HTTP Status Codes
+
+The RaceDay API will use standard HTTP status codes to clearly indicate the result of each request.
+
+- `200 OK` - The request was successful.
+- `201 Created` - A new resource was created successfully.
+- `400 Bad Request` - The request contains invalid or missing data.
+- `401 Unauthorized` - Authentication is required.
+- `403 Forbidden` - The authenticated user does not have permission.
+- `404 Not Found` - The requested resource could not be found.
+- `409 Conflict` - The request conflicts with existing data, such as a duplicate enrolment.
+- `500 Internal Server Error` - An unexpected server error occurred.
 
 ## Endpoint Table
 
