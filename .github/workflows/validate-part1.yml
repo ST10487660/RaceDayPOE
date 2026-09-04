@@ -18,13 +18,16 @@ jobs:
         run: test -f README.md
 
       - name: Check database script exists
-        run: test -f RaceDay_Database.sql
+        run: test -f docs/RaceDay_Database.sql
 
       - name: Check ERD exists
-        run: test -f RaceDay_ERD.png
+        run: test -f docs/RaceDay_ERD.png
 
       - name: Check API endpoint plan exists
-        run: test -f RaceDay_API_Endpoint_Plan.md
+        run: test -f docs/RaceDay_API_Endpoint_Plan.md
+
+      - name: Check API endpoint PDF exists
+        run: test -f docs/RaceDay_API_Endpoint_Plan.pdf
 
       - name: Part 1 validation complete
         run: echo "RaceDay Part 1 files validated successfully."
