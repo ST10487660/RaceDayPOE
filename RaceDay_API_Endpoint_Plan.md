@@ -57,6 +57,16 @@ The RaceDay API will validate incoming data before processing a request.
 - Duplicate event enrolments will not be allowed.
 - Invalid input will return `400 Bad Request` with an appropriate error message.
 
+## API Naming Conventions
+
+The RaceDay API will follow consistent naming conventions to make the endpoints easy to understand and maintain.
+
+- Endpoint routes will use lowercase resource names.
+- Plural nouns will be used for resources such as `/api/events`, `/api/categories` and `/api/results`.
+- HTTP methods will describe the operation instead of including actions such as "create" or "delete" in the route.
+- Route parameters will identify specific resources, for example `/api/events/{id}`.
+- JSON property names will use camelCase.
+  
 ## Endpoint Table
 
 | HTTP Method | Route | Description | Role Required | Request Body | Expected Response |
