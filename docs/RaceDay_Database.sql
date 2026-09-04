@@ -31,10 +31,8 @@ CREATE TABLE dbo.Users
     FullName NVARCHAR(100) NOT NULL,
     Email NVARCHAR(150) NOT NULL
         CONSTRAINT UQ_Users_Email UNIQUE,
-    CONSTRAINT CK_Users_Email CHECK (Email LIKE '%_@_%._%'),
     PasswordHash NVARCHAR(255) NOT NULL,
     Role NVARCHAR(20) NOT NULL
-    
         CONSTRAINT CK_Users_Role CHECK (Role IN (N'Organiser', N'Participant')),
     CreatedAt DATETIME2(0) NOT NULL
         CONSTRAINT DF_Users_CreatedAt DEFAULT SYSDATETIME()
@@ -47,11 +45,9 @@ CREATE TABLE dbo.Events
         CONSTRAINT PK_Events PRIMARY KEY,
     OrganiserID INT NOT NULL,
     EventName NVARCHAR(150) NOT NULL,
-    CONSTRAINT CK_Events_EventName CHECK (LEN(LTRIM(RTRIM(EventName))) > 0),
     Description NVARCHAR(500) NULL,
     EventDate DATE NOT NULL,
     Location NVARCHAR(200) NOT NULL,
-    CONSTRAINT CK_Events_Location CHECK (LEN(LTRIM(RTRIM(Location))) > 0),
     MaxParticipants INT NOT NULL
         CONSTRAINT CK_Events_MaxParticipants CHECK (MaxParticipants > 0),
     CreatedAt DATETIME2(0) NOT NULL
@@ -68,7 +64,6 @@ CREATE TABLE dbo.Categories
         CONSTRAINT PK_Categories PRIMARY KEY,
     CategoryName NVARCHAR(100) NOT NULL
         CONSTRAINT UQ_Categories_Name UNIQUE,
-    CONSTRAINT CK_Categories_Name CHECK (LEN(LTRIM(RTRIM(CategoryName))) > 0),
     Description NVARCHAR(300) NULL
 );
 GO
