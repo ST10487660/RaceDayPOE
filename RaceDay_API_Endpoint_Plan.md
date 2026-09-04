@@ -29,6 +29,22 @@ The RaceDay API will use standard HTTP status codes to clearly indicate the resu
 - `409 Conflict` - The request conflicts with existing data, such as a duplicate enrolment.
 - `500 Internal Server Error` - An unexpected server error occurred.
 
+- ## Data Format
+
+The RaceDay API will use JSON for communication between the client and server.
+
+All request bodies containing data will be sent using the `application/json` content type. API responses will also return data in JSON format to ensure consistency between the MVC application and the REST API.
+
+Example event response:
+
+{
+  "eventId": 1,
+  "eventName": "Johannesburg City Run",
+  "eventDate": "2026-10-10",
+  "location": "Johannesburg",
+  "maxParticipants": 500
+}
+
 ## Endpoint Table
 
 | HTTP Method | Route | Description | Role Required | Request Body | Expected Response |
