@@ -34,6 +34,7 @@ CREATE TABLE dbo.Users
     CONSTRAINT CK_Users_Email CHECK (Email LIKE '%_@_%._%'),
     PasswordHash NVARCHAR(255) NOT NULL,
     Role NVARCHAR(20) NOT NULL
+    CONSTRAINT CK_Users_Role CHECK (Role IN ('Organiser', 'Participant')),
         CONSTRAINT CK_Users_Role CHECK (Role IN (N'Organiser', N'Participant')),
     CreatedAt DATETIME2(0) NOT NULL
         CONSTRAINT DF_Users_CreatedAt DEFAULT SYSDATETIME()
