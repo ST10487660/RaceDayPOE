@@ -45,6 +45,18 @@ Example event response:
   "maxParticipants": 500
 }
 
+## Input Validation
+
+The RaceDay API will validate incoming data before processing a request.
+
+- Required fields must contain values.
+- Email addresses must use a valid format.
+- Event names and locations cannot be blank.
+- Maximum participants must be greater than zero.
+- Users can only have the `Organiser` or `Participant` role.
+- Duplicate event enrolments will not be allowed.
+- Invalid input will return `400 Bad Request` with an appropriate error message.
+
 ## Endpoint Table
 
 | HTTP Method | Route | Description | Role Required | Request Body | Expected Response |
