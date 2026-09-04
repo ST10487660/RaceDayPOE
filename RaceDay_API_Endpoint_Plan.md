@@ -80,6 +80,14 @@ Example:
 
 Error messages will be kept clear and will not expose sensitive system or database information.
 
+## API Versioning
+
+The RaceDay API will use versioning to allow future changes without breaking existing client applications.
+
+The first version of the API will use the `/api/v1/` route prefix. Future versions can be introduced when major changes are required while maintaining compatibility with existing functionality.
+
+
+
 ## Endpoint Table
 
 | HTTP Method | Route | Description | Role Required | Request Body | Expected Response |
