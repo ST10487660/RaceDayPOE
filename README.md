@@ -237,7 +237,6 @@ The tests (`Part2-API/tests/RaceDay.Api.Tests`) start the real API in memory wit
 
 
 ## Part 2 video (unlisted YouTube)
-<!-- TODO: paste your unlisted YouTube link -->
-_YouTube link goes here._
+https://youtu.be/yPW2g5p8Hhs
 
 
