@@ -8,7 +8,7 @@ using RaceDay.Api.Models;
 
 namespace RaceDay.Api.Tests;
 
-/// <summary>User registration and login (success and failure).</summary>
+/// <summary>User registration and login .</summary>
 public class AuthTests : IClassFixture<RaceDayFactory>
 {
     private readonly RaceDayFactory _factory;
