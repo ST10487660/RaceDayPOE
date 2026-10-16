@@ -1,0 +1,9 @@
+## .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+TestResults/
+*.trx
+appsettings.Development.json
