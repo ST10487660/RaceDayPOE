@@ -233,8 +233,8 @@ The tests (`Part2-API/tests/RaceDay.Api.Tests`) start the real API in memory wit
 `.github/workflows/part2-ci.yml` restores, builds and runs all tests on every push.
 
 ### CI/CD screenshot (Part 2)
-<!-- TODO: after the first green run, drag a screenshot of the successful Actions run here -->
-_Screenshot of the successful Part 2 build goes here._
+<img width="1376" height="846" alt="image" src="https://github.com/user-attachments/assets/c13e2a2b-5332-416a-bfb8-e90efb04cba9" />
+
 
 ## Part 2 video (unlisted YouTube)
 <!-- TODO: paste your unlisted YouTube link -->
