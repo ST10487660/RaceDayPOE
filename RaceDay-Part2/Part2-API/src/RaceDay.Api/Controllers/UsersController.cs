@@ -8,7 +8,7 @@ using RaceDay.Api.Mapping;
 
 namespace RaceDay.Api.Controllers;
 
-/// <summary>The logged-in user's own profile.</summary>
+
 [Route("api/v1/users")]
 [Authorize]
 public class UsersController : ApiControllerBase
