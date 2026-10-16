@@ -3,10 +3,7 @@ using RaceDay.Api.Models;
 
 namespace RaceDay.Api.Data;
 
-/// <summary>
-/// Code-first model. Table names, column sizes, unique indexes and check constraints
-/// mirror docs/RaceDay_Database.sql from Part 1.
-/// </summary>
+
 public class RaceDayDbContext : DbContext
 {
     public RaceDayDbContext(DbContextOptions<RaceDayDbContext> options) : base(options) { }
