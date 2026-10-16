@@ -8,7 +8,7 @@ using RaceDay.Api.Models;
 
 namespace RaceDay.Api.Controllers;
 
-/// <summary>Race results: Organisers capture them, Participants view their own.</summary>
+
 [Route("api/v1")]
 public class ResultsController : ApiControllerBase
 {
