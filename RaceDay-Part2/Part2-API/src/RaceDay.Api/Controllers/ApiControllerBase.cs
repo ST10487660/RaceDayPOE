@@ -8,7 +8,7 @@ namespace RaceDay.Api.Controllers;
 [Produces("application/json")]
 public abstract class ApiControllerBase : ControllerBase
 {
-    /// <summary>The id of the user stored in the session cookie.</summary>
+    
     protected int CurrentUserId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
     /// <summary>Returns the standard { statusCode, message } error body.</summary>
