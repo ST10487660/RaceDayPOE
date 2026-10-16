@@ -59,7 +59,7 @@ builder.Services
         };
     });
 
-// ---- Swagger ----
+// ---- Swagger ---
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
