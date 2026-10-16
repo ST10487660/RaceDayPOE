@@ -81,7 +81,7 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// ---- Pipeline ----
+// ----Http request Pipeline ----
 app.UseExceptionHandler(errorApp => errorApp.Run(context =>
     ErrorWriter.WriteAsync(context, StatusCodes.Status500InternalServerError, "An unexpected error occurred.")));
 
