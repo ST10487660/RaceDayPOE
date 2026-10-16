@@ -18,7 +18,7 @@ builder.Services.AddDbContext<RaceDayDbContext>(options =>
 // ---- Password hashing (PBKDF2 with per-user salt; plain passwords are never stored) ----
 builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 
-// ---- Create/migrate the database and seed demo data at application start ----
+// ---- Createe the database and seed demo data at application start ----
 builder.Services.AddHostedService<DatabaseInitializer>();
 
 // ---- Session authentication: encrypted HttpOnly cookie holding user id + role ----
