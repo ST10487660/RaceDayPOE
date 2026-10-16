@@ -14,7 +14,7 @@ using RaceDay.Api.Models;
 
 namespace RaceDay.Api.Controllers;
 
-/// <summary>Registration, login and logout.</summary>
+
 [Route("api/v1/auth")]
 public class AuthController : ApiControllerBase
 {
