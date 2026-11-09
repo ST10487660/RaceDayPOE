@@ -353,7 +353,7 @@ https://youtu.be/yPW2g5p8Hhs
 
 **Part 3 — MVC Application**
 
-[Insert your unlisted Part 3 YouTube video link here.]
+https://youtu.be/6MilhugeFXM
 
 ---
 
