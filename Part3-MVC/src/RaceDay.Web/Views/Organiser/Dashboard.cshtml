@@ -1,0 +1,61 @@
+@model DashboardViewModel
+@inject ICurrentUser CurrentUser
+@{
+    ViewData["Title"] = "Dashboard";
+    var today = ViewHelpers.Today;
+}
+<h1 class="rd-h1">Welcome back, @CurrentUser.FullName.Split(' ')[0]</h1>
+<p class="rd-muted mb-4">Here is how your events are doing.</p>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3"><div class="rd-stat"><small>Events created</small><strong>@Model.TotalEvents</strong></div></div>
+    <div class="col-6 col-lg-3"><div class="rd-stat"><small>Upcoming events</small><strong>@Model.UpcomingEvents</strong></div></div>
+    <div class="col-6 col-lg-3"><div class="rd-stat"><small>Total enrolments</small><strong>@Model.TotalEnrolments</strong></div></div>
+    <div class="col-6 col-lg-3">
+        <div class="rd-stat rd-stat-accent"><small>Next event</small>
+            @if (Model.NextEvent != null) { <strong>@Model.NextEvent.EventDate.ToString("dd MMM")</strong><span>@Model.NextEvent.EventName</span> }
+            else { <strong>-</strong><span>Nothing scheduled</span> }
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="rd-h2 mb-0">Your events</h2>
+    <a class="btn btn-primary" asp-action="CreateEvent">+ New event</a>
+</div>
+
+@if (Model.Events.Count == 0)
+{
+    <div class="rd-empty text-center">
+        <div class="rd-empty-icon">&#128197;</div>
+        <h2 class="rd-h2">No events yet</h2>
+        <p class="rd-muted">Create your first event to start receiving enrolments.</p>
+        <a class="btn btn-primary" asp-action="CreateEvent">Create an event</a>
+    </div>
+}
+else
+{
+    <div class="card"><div class="table-responsive">
+    <table class="table rd-table align-middle mb-0">
+        <thead><tr><th>Event</th><th>Date</th><th>Enrolments</th><th>State</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var e in Model.Events)
+        {
+            var pct = e.MaxParticipants == 0 ? 0 : Math.Min(100, e.EnrolledCount * 100 / e.MaxParticipants);
+            <tr>
+                <td><strong>@e.EventName</strong><br /><span class="rd-muted">@e.Location</span></td>
+                <td>@e.EventDate.ToString("dd MMM yyyy")</td>
+                <td style="min-width:160px">
+                    <div class="d-flex justify-content-between small"><span>@e.EnrolledCount / @e.MaxParticipants</span><span>@pct%</span></div>
+                    <div class="progress rd-progress"><div class="progress-bar" role="progressbar" style="width:@pct%" aria-valuenow="@pct" aria-valuemin="0" aria-valuemax="100"></div></div>
+                </td>
+                <td>@if (e.EventDate >= today) { <span class="rd-status status-confirmed">Upcoming</span> } else { <span class="rd-status status-cancelled">Completed</span> }</td>
+                <td class="text-end text-nowrap">
+                    <a class="btn btn-sm btn-outline-primary" asp-action="Enrolments" asp-route-id="@e.EventId">Enrolments</a>
+                    <a class="btn btn-sm btn-outline-primary" asp-action="Results" asp-route-id="@e.EventId">Results</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table></div></div>
+}

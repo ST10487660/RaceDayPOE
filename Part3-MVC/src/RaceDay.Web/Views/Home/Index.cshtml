@@ -1,0 +1,72 @@
+@model HomeIndexViewModel
+@inject ICurrentUser CurrentUser
+@{
+    ViewData["Title"] = "Upcoming events";
+}
+
+<section class="rd-hero">
+    <div>
+        <p class="rd-kicker">Run. Walk. Cycle.</p>
+        <h1 class="rd-hero-title">Find your next<br />race day</h1>
+        <p class="rd-hero-text">Browse upcoming events, pick your category and get on the start line.</p>
+        @if (!CurrentUser.IsAuthenticated)
+        {
+            <a class="btn btn-primary btn-lg me-2" asp-controller="Account" asp-action="Register">Join RaceDay</a>
+            <a class="btn btn-outline-light btn-lg" asp-controller="Account" asp-action="Login">Log in</a>
+        }
+    </div>
+</section>
+
+<form method="get" asp-controller="Home" asp-action="Index" class="rd-filter card card-body mb-4">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label" for="search">Search</label>
+            <input type="text" class="form-control" id="search" name="search" value="@Model.Search" placeholder="Event name or place" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="type">Type</label>
+            <select class="form-select" id="type" name="type">
+                <option value="">All</option>
+                @foreach (var t in new[] { "Run", "Walk", "Cycle" })
+                {
+                    <option value="@t" selected="@(Model.EventType == t)">@t</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="from">From</label>
+            <input type="date" class="form-control" id="from" name="from" value="@Model.From?.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label" for="to">To</label>
+            <input type="date" class="form-control" id="to" name="to" value="@Model.To?.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="col-md-2 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-grow-1">Filter</button>
+            @if (Model.HasFilters)
+            {
+                <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Clear</a>
+            }
+        </div>
+    </div>
+</form>
+
+@if (Model.Events.Count == 0)
+{
+    <div class="rd-empty text-center">
+        <div class="rd-empty-icon">&#127937;</div>
+        <h2 class="rd-h2">No events found</h2>
+        <p class="rd-muted">@(Model.HasFilters ? "Try changing or clearing your filters." : "There are no upcoming events right now. Check back soon!")</p>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var ev in Model.Events)
+        {
+            <div class="col-md-6 col-lg-4">
+                <partial name="_EventCard" model="ev" />
+            </div>
+        }
+    </div>
+}

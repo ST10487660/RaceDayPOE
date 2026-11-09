@@ -1,0 +1,19 @@
+@inject ICurrentUser CurrentUser
+@{
+    ViewData["Title"] = "Access denied";
+}
+<div class="rd-empty text-center">
+    <div class="rd-big-number">403</div>
+    <h1 class="rd-h1">This area is not for your role</h1>
+    <p class="rd-muted">
+        @if (CurrentUser.IsOrganiser)
+        {
+            <text>Participant pages are only available to Participant accounts.</text>
+        }
+        else
+        {
+            <text>Organiser pages are only available to Organiser accounts.</text>
+        }
+    </p>
+    <a class="btn btn-primary" asp-controller="@(CurrentUser.IsOrganiser ? "Organiser" : "Home")" asp-action="@(CurrentUser.IsOrganiser ? "Dashboard" : "Index")">Take me back</a>
+</div>
