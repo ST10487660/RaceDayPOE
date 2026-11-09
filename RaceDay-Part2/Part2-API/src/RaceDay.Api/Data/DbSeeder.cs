@@ -3,10 +3,7 @@ using RaceDay.Api.Models;
 
 namespace RaceDay.Api.Data;
 
-/// <summary>
-/// Seeds the same sample data as the Part 1 SQL script, but with REAL password hashes
-/// so the demo accounts can actually log in. Demo password for all four users: Password123!
-/// </summary>
+
 public static class DbSeeder
 {
     public const string DemoPassword = "Password123!";

@@ -1,0 +1,10 @@
+@model int
+@{
+    ViewData["Title"] = Model == 404 ? "Page not found" : "Oops";
+}
+<div class="rd-empty text-center">
+    <div class="rd-big-number">@Model</div>
+    <h1 class="rd-h1">@(Model == 404 ? "We couldn't find that page" : "Something went wrong")</h1>
+    <p class="rd-muted">@(Model == 404 ? "The page or event you were looking for does not exist or has been removed." : "Please try again in a moment.")</p>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back to events</a>
+</div>

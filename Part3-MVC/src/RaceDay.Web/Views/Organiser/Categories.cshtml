@@ -1,0 +1,56 @@
+@model CategoriesPageViewModel
+@{
+    ViewData["Title"] = "Categories";
+}
+<h1 class="rd-h1">Categories</h1>
+<p class="rd-muted mb-4">Age and distance categories (for example Under 20, Senior, 10 km, 21 km). Attach them to events when you create or edit an event.</p>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card"><div class="card-body">
+            <h2 class="rd-h2">Add a category</h2>
+            <form asp-action="CreateCategory" method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="NewCategory.CategoryName" class="form-label"></label>
+                    <input asp-for="NewCategory.CategoryName" class="form-control" required />
+                    <span asp-validation-for="NewCategory.CategoryName" class="rd-field-error"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="NewCategory.Description" class="form-label"></label>
+                    <input asp-for="NewCategory.Description" class="form-control" />
+                    <span asp-validation-for="NewCategory.Description" class="rd-field-error"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Add category</button>
+            </form>
+        </div></div>
+    </div>
+    <div class="col-lg-8">
+        @if (Model.Categories.Count == 0)
+        {
+            <div class="rd-empty text-center"><h2 class="rd-h2">No categories yet</h2><p class="rd-muted">Add your first category using the form.</p></div>
+        }
+        else
+        {
+            <div class="card"><div class="table-responsive">
+            <table class="table rd-table align-middle mb-0">
+                <thead><tr><th>Name</th><th>Description</th><th></th></tr></thead>
+                <tbody>
+                @foreach (var c in Model.Categories)
+                {
+                    <tr>
+                        <td><strong>@c.CategoryName</strong></td>
+                        <td class="rd-muted">@c.Description</td>
+                        <td class="text-end text-nowrap">
+                            <a class="btn btn-sm btn-outline-secondary" asp-action="EditCategory" asp-route-id="@c.CategoryId">Edit</a>
+                            <form asp-action="DeleteCategory" asp-route-id="@c.CategoryId" method="post" class="d-inline" onsubmit="return confirm('Delete category @c.CategoryName?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table></div></div>
+        }
+    </div>
+</div>

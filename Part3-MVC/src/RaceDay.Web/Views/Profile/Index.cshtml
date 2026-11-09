@@ -1,0 +1,50 @@
+@model ProfileViewModel
+@inject IAssetUrlResolver Assets
+@{
+    ViewData["Title"] = "My profile";
+    var picture = Assets.Resolve(Model.ProfilePictureUrl);
+}
+<h1 class="rd-h1 mb-4">My profile</h1>
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                @if (picture != null)
+                {
+                    <img src="@picture" alt="Your profile picture" class="rd-avatar rd-avatar-xl mb-3" />
+                }
+                else
+                {
+                    <span class="rd-avatar rd-avatar-xl rd-avatar-initials mb-3">@ViewHelpers.Initials(Model.FullName)</span>
+                }
+                <h2 class="rd-h2 mb-1">@Model.FullName</h2>
+                <span class="rd-type-pill">@Model.Role</span>
+                <p class="rd-muted mt-2 mb-3">Member since @Model.MemberSince.ToString("MMMM yyyy")</p>
+                <form asp-action="UploadPicture" method="post" enctype="multipart/form-data">
+                    <input type="file" name="picture" class="form-control form-control-sm mb-2" accept="image/png,image/jpeg,image/webp" required />
+                    <button type="submit" class="btn btn-outline-primary btn-sm w-100">Upload new picture</button>
+                    <div class="form-text">JPEG, PNG or WebP, up to 5 MB.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card"><div class="card-body p-4">
+            <h2 class="rd-h2">Personal information</h2>
+            <form asp-action="Update" method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" required />
+                    <span asp-validation-for="FullName" class="rd-field-error"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" required />
+                    <span asp-validation-for="Email" class="rd-field-error"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+        </div></div>
+    </div>
+</div>

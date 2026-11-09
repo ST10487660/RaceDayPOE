@@ -1,0 +1,139 @@
+/* RaceDay theme: sporting, energetic, consistent. One palette, two typefaces, one spacing scale. */
+:root {
+    --rd-navy: #0b1f3a;
+    --rd-navy-2: #12305a;
+    --rd-orange: #ff5a1f;
+    --rd-orange-dark: #e04a12;
+    --rd-lime: #a3e635;
+    --rd-bg: #f4f6fa;
+    --rd-card: #ffffff;
+    --rd-text: #14213d;
+    --rd-muted: #5b6b82;
+    --rd-border: #dfe5ee;
+    --rd-green: #1f9d55;
+    --rd-amber: #f59e0b;
+    --rd-red: #d64545;
+    --rd-radius: 14px;
+    --bs-primary: var(--rd-orange);
+    --bs-primary-rgb: 255, 90, 31;
+    --bs-body-font-family: "Barlow", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    --bs-body-color: var(--rd-text);
+    --bs-body-bg: var(--rd-bg);
+    --bs-link-color: var(--rd-orange-dark);
+}
+
+body { font-family: var(--bs-body-font-family); background: var(--rd-bg); color: var(--rd-text); min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1; }
+h1, h2, h3, .rd-h1, .rd-h2, .rd-hero-title, .rd-brand, .rd-brand-sm, .rd-big-number, .rd-card-title { font-family: "Barlow Condensed", "Arial Narrow", Impact, sans-serif; letter-spacing: .01em; }
+.rd-h1 { font-size: 2.4rem; font-weight: 800; text-transform: uppercase; line-height: 1.05; color: var(--rd-navy); }
+.rd-h2 { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; color: var(--rd-navy); margin-bottom: .75rem; }
+.rd-lead { font-size: 1.15rem; }
+.rd-muted { color: var(--rd-muted); }
+.rd-mono { font-variant-numeric: tabular-nums; font-family: "Barlow", monospace; }
+.rd-link { font-weight: 600; text-decoration: none; }
+.rd-link:hover { text-decoration: underline; }
+
+/* ---- buttons ---- */
+.btn { border-radius: 10px; font-weight: 600; }
+.btn-primary { --bs-btn-bg: var(--rd-orange); --bs-btn-border-color: var(--rd-orange); --bs-btn-hover-bg: var(--rd-orange-dark); --bs-btn-hover-border-color: var(--rd-orange-dark); --bs-btn-active-bg: var(--rd-orange-dark); --bs-btn-active-border-color: var(--rd-orange-dark); --bs-btn-disabled-bg: var(--rd-orange); --bs-btn-disabled-border-color: var(--rd-orange); --bs-btn-color: #fff; --bs-btn-hover-color: #fff; }
+.btn-outline-primary { --bs-btn-color: var(--rd-orange-dark); --bs-btn-border-color: var(--rd-orange); --bs-btn-hover-bg: var(--rd-orange); --bs-btn-hover-border-color: var(--rd-orange); --bs-btn-hover-color: #fff; --bs-btn-active-bg: var(--rd-orange); --bs-btn-active-border-color: var(--rd-orange); }
+
+/* ---- navbar ---- */
+.rd-navbar { background: var(--rd-navy); border-bottom: 4px solid var(--rd-orange); }
+.role-organiser .rd-navbar { background: #0a1730; border-bottom-color: var(--rd-lime); }
+.rd-brand { font-size: 1.8rem; font-weight: 800; color: #fff !important; letter-spacing: .04em; }
+.rd-brand span, .rd-brand-sm span { color: var(--rd-orange); }
+.role-organiser .rd-brand span { color: var(--rd-lime); }
+.rd-console-tag { display: inline-block; margin-left: .6rem; padding: .1rem .5rem; border-radius: 999px; background: var(--rd-lime); color: var(--rd-navy); font-family: "Barlow", sans-serif; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; vertical-align: middle; }
+.rd-navbar .nav-link { color: rgba(255,255,255,.8); font-weight: 600; }
+.rd-navbar .nav-link:hover, .rd-navbar .nav-link.active { color: #fff; }
+.rd-navbar .nav-link.active { box-shadow: inset 0 -3px 0 var(--rd-orange); }
+.role-organiser .rd-navbar .nav-link.active { box-shadow: inset 0 -3px 0 var(--rd-lime); }
+.rd-footer { background: var(--rd-navy); color: rgba(255,255,255,.75); padding: 1.25rem 0; margin-top: 3rem; font-size: .95rem; }
+.rd-brand-sm { font-size: 1.3rem; font-weight: 800; color: #fff; letter-spacing: .04em; }
+
+/* ---- avatars ---- */
+.rd-avatar { border-radius: 50%; object-fit: cover; display: inline-block; }
+.rd-avatar-sm { width: 30px; height: 30px; }
+.rd-avatar-xl { width: 120px; height: 120px; }
+.rd-avatar-initials { background: var(--rd-orange); color: #fff; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.rd-avatar-sm.rd-avatar-initials { font-size: .8rem; }
+.rd-avatar-xl.rd-avatar-initials { font-size: 2.6rem; font-family: "Barlow Condensed", sans-serif; }
+
+/* ---- hero ---- */
+.rd-hero { background: linear-gradient(135deg, var(--rd-navy) 0%, var(--rd-navy-2) 60%, #1b4a85 100%); color: #fff; border-radius: var(--rd-radius); padding: 3rem 2.5rem; margin-bottom: 1.75rem; position: relative; overflow: hidden; }
+.rd-hero::after { content: ""; position: absolute; right: -60px; top: -60px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,31,.55), transparent 70%); }
+.rd-kicker { color: var(--rd-lime); font-weight: 700; text-transform: uppercase; letter-spacing: .15em; margin-bottom: .5rem; }
+.rd-hero-title { font-size: 3.6rem; font-weight: 800; text-transform: uppercase; line-height: 1; margin-bottom: 1rem; }
+.rd-hero-text { font-size: 1.15rem; max-width: 32rem; color: rgba(255,255,255,.85); }
+
+/* ---- cards ---- */
+.card { border: 1px solid var(--rd-border); border-radius: var(--rd-radius); background: var(--rd-card); box-shadow: 0 2px 10px rgba(11,31,58,.04); overflow: hidden; }
+.rd-form-card { box-shadow: 0 8px 30px rgba(11,31,58,.08); }
+.rd-filter { border-left: 5px solid var(--rd-orange); }
+.rd-event-card { transition: transform .15s ease, box-shadow .15s ease; }
+.rd-event-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(11,31,58,.12); }
+.rd-event-banner { width: 100%; height: 170px; object-fit: cover; display: block; }
+.rd-banner-placeholder { display: flex; align-items: center; justify-content: center; font-size: 3.2rem; background: linear-gradient(135deg, var(--rd-navy), var(--rd-navy-2)); }
+.rd-banner-placeholder.type-run { background: linear-gradient(135deg, #ff5a1f, #ff8a3d); }
+.rd-banner-placeholder.type-walk { background: linear-gradient(135deg, #1f9d55, #58c985); }
+.rd-banner-placeholder.type-cycle { background: linear-gradient(135deg, #12305a, #2f6cc0); }
+.rd-card-title { font-size: 1.55rem; font-weight: 700; text-transform: uppercase; color: var(--rd-navy); margin-bottom: .25rem; }
+.rd-type-pill { display: inline-block; background: var(--rd-navy); color: #fff; border-radius: 999px; padding: .15rem .75rem; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.rd-date { font-weight: 700; color: var(--rd-orange-dark); }
+.rd-detail-banner img, .rd-banner-large { width: 100%; height: 320px; object-fit: cover; border-radius: var(--rd-radius); display: flex; }
+.rd-banner-large { font-size: 6rem; }
+.rd-banner-preview { max-width: 280px; max-height: 160px; border-radius: 10px; border: 1px solid var(--rd-border); }
+.rd-fact { background: var(--rd-card); border: 1px solid var(--rd-border); border-radius: 12px; padding: .75rem 1rem; height: 100%; }
+.rd-fact small, .rd-stat small { display: block; color: var(--rd-muted); text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; font-weight: 700; }
+.rd-fact strong { font-size: 1.05rem; }
+.rd-enrol-card { border-top: 5px solid var(--rd-orange); position: sticky; top: 1rem; }
+
+/* ---- dashboard stats ---- */
+.rd-stat { background: var(--rd-card); border: 1px solid var(--rd-border); border-radius: var(--rd-radius); padding: 1rem 1.25rem; height: 100%; }
+.rd-stat strong { display: block; font-family: "Barlow Condensed", sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--rd-navy); line-height: 1.1; }
+.rd-stat span { display: block; color: var(--rd-muted); font-size: .9rem; }
+.rd-stat-accent { background: var(--rd-navy); border-color: var(--rd-navy); }
+.rd-stat-accent small, .rd-stat-accent span { color: rgba(255,255,255,.75); }
+.rd-stat-accent strong { color: var(--rd-lime); }
+.rd-progress { height: 8px; background: #e8edf5; }
+.rd-progress .progress-bar { background: var(--rd-orange); }
+
+/* ---- tables ---- */
+.rd-table thead th { background: #eef2f8; color: var(--rd-navy); text-transform: uppercase; font-size: .75rem; letter-spacing: .08em; border-bottom: 0; white-space: nowrap; }
+.rd-table td { vertical-align: middle; }
+.rd-position strong { color: var(--rd-orange-dark); font-size: 1.1rem; }
+
+/* ---- status badges: colour coded ---- */
+.rd-status { display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.status-confirmed { background: #dcf5e7; color: #14753f; }
+.status-pending { background: #fef0cc; color: #8a5a00; }
+.status-cancelled { background: #ececf1; color: #5a5f72; }
+
+/* ---- forms ---- */
+.form-label { font-weight: 600; }
+.form-control, .form-select { border-radius: 10px; border-color: var(--rd-border); padding: .6rem .8rem; }
+.form-control:focus, .form-select:focus { border-color: var(--rd-orange); box-shadow: 0 0 0 .2rem rgba(255,90,31,.18); }
+.rd-field-error { color: var(--rd-red); font-size: .875rem; display: block; margin-top: .25rem; }
+.validation-summary-valid { display: none; }
+.rd-role-choice { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.rd-role-option { border: 2px solid var(--rd-border); border-radius: 12px; padding: .75rem 1rem; display: flex; gap: .75rem; align-items: flex-start; cursor: pointer; background: #fff; }
+.rd-role-option:has(input:checked) { border-color: var(--rd-orange); background: #fff4ee; }
+.rd-role-option small { display: block; color: var(--rd-muted); }
+.rd-check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .5rem; }
+.rd-check { display: flex; align-items: center; gap: .5rem; border: 1px solid var(--rd-border); border-radius: 10px; padding: .5rem .75rem; background: #fff; cursor: pointer; }
+.rd-check:has(input:checked) { border-color: var(--rd-orange); background: #fff4ee; }
+
+/* ---- empty + error states ---- */
+.rd-empty { background: var(--rd-card); border: 2px dashed var(--rd-border); border-radius: var(--rd-radius); padding: 3rem 1.5rem; }
+.rd-empty-icon { font-size: 3rem; }
+.rd-big-number { font-size: 6rem; font-weight: 800; color: var(--rd-orange); line-height: 1; }
+
+@media (max-width: 767px) {
+    .rd-hero { padding: 2rem 1.25rem; }
+    .rd-hero-title { font-size: 2.6rem; }
+    .rd-h1 { font-size: 1.9rem; }
+    .rd-role-choice { grid-template-columns: 1fr; }
+    .rd-enrol-card { position: static; }
+    .rd-detail-banner img, .rd-banner-large { height: 200px; }
+}

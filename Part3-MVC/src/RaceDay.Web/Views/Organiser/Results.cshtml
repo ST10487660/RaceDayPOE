@@ -1,0 +1,44 @@
+@model ResultsPageViewModel
+@{
+    ViewData["Title"] = "Results";
+}
+<a asp-action="Events" class="rd-link small">&larr; Back to my events</a>
+<h1 class="rd-h1 mt-2">Results: @Model.Event.EventName</h1>
+<p class="rd-muted mb-3">@Model.Event.EventDate.ToString("dd MMM yyyy") &middot; @Model.Event.Location</p>
+
+@if (!Model.Concluded)
+{
+    <div class="alert alert-warning">This event has not taken place yet. Results can be captured once the event date has arrived.</div>
+}
+
+@if (Model.Rows.Count == 0)
+{
+    <div class="rd-empty text-center"><div class="rd-empty-icon">&#128101;</div><h2 class="rd-h2">No participants to record</h2><p class="rd-muted">There are no active enrolments for this event.</p></div>
+}
+else
+{
+    <div class="card"><div class="table-responsive">
+    <table class="table rd-table align-middle mb-0">
+        <thead><tr><th>Participant</th><th>Category</th><th>Position</th><th>Finish time (hh:mm:ss)</th><th>Distance (km)</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var row in Model.Rows)
+        {
+            var formId = "result-" + row.Enrolment.EnrolmentId;
+            <tr>
+                <td><strong>@row.Enrolment.ParticipantName</strong><br /><span class="rd-muted">@row.Enrolment.ParticipantEmail</span></td>
+                <td>@row.Enrolment.CategoryName</td>
+                <td style="width:110px"><input form="@formId" type="number" min="1" name="position" class="form-control form-control-sm" value="@row.Result?.Position" disabled="@(!Model.Concluded)" required /></td>
+                <td style="width:160px"><input form="@formId" type="text" name="finishTime" class="form-control form-control-sm rd-mono" placeholder="00:45:30" pattern="\d{1,2}:\d{2}:\d{2}" value="@(row.Result?.FinishTime?.ToString(@"hh\:mm\:ss"))" disabled="@(!Model.Concluded)" required /></td>
+                <td style="width:130px"><input form="@formId" type="number" step="0.01" min="0.01" name="distanceKm" class="form-control form-control-sm" value="@row.Result?.DistanceKm" disabled="@(!Model.Concluded)" /></td>
+                <td class="text-end">
+                    <form id="@formId" asp-action="SaveResult" asp-route-id="@Model.Event.EventId" method="post">
+                        <input type="hidden" name="enrolmentId" value="@row.Enrolment.EnrolmentId" />
+                        @if (row.Result != null) { <input type="hidden" name="resultId" value="@row.Result.ResultId" /> }
+                        <button type="submit" class="btn btn-sm @(row.Result != null ? "btn-outline-primary" : "btn-primary")" disabled="@(!Model.Concluded)">@(row.Result != null ? "Update" : "Save result")</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table></div></div>
+}

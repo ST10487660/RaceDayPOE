@@ -18,7 +18,7 @@ builder.Services.AddDbContext<RaceDayDbContext>(options =>
 // ---- Password hashing (PBKDF2 with per-user salt; plain passwords are never stored) ----
 builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 
-// ---- Create/migrate the database and seed demo data at application start ----
+// ---- Createe the database and seed demo data at application start ----
 builder.Services.AddHostedService<DatabaseInitializer>();
 
 // ---- Session authentication: encrypted HttpOnly cookie holding user id + role ----
@@ -59,7 +59,7 @@ builder.Services
         };
     });
 
-// ---- Swagger ----
+// ---- Swagger ---
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -81,7 +81,7 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// ---- Pipeline ----
+// ----Http request Pipeline ----
 app.UseExceptionHandler(errorApp => errorApp.Run(context =>
     ErrorWriter.WriteAsync(context, StatusCodes.Status500InternalServerError, "An unexpected error occurred.")));
 
@@ -95,7 +95,7 @@ app.UseSwaggerUI(options =>
 
 if (!app.Environment.IsEnvironment("Testing"))
     app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 

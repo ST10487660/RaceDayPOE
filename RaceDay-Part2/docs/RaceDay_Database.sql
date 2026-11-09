@@ -52,7 +52,7 @@ CREATE TABLE dbo.Events
     EventDate DATE NOT NULL,
     Location NVARCHAR(200) NOT NULL
         CONSTRAINT CK_Events_Location CHECK (LEN(LTRIM(RTRIM(Location))) > 0),
-    -- Added in Part 2 (required by the Part 2 brief): event type and headline distance.
+    -- Added in Part 2 
     EventType NVARCHAR(20) NOT NULL
         CONSTRAINT CK_Events_EventType CHECK (EventType IN (N'Run', N'Walk', N'Cycle')),
     DistanceKm DECIMAL(6,2) NOT NULL

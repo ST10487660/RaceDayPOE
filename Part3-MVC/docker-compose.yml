@@ -1,0 +1,13 @@
+# One command to start the MVC site:   docker compose up --build
+# The Part 2 API must already be running on the host (port 5080).
+services:
+  web:
+    build: .
+    image: raceday-web
+    ports:
+      - "8081:8080"
+    environment:
+      Api__BaseUrl: http://host.docker.internal:5080
+      Api__PublicBaseUrl: http://localhost:5080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

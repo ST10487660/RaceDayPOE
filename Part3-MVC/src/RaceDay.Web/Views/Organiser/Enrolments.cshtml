@@ -1,0 +1,32 @@
+@model List<ApiEnrolment>
+@{
+    var ev = (ApiEvent)ViewBag.Event;
+    ViewData["Title"] = "Enrolments";
+}
+<a asp-action="Events" class="rd-link small">&larr; Back to my events</a>
+<h1 class="rd-h1 mt-2">Enrolments: @ev.EventName</h1>
+<p class="rd-muted mb-4">@ev.EventDate.ToString("dd MMM yyyy") &middot; @ev.Location &middot; @ev.EnrolledCount of @ev.MaxParticipants places taken</p>
+
+@if (Model.Count == 0)
+{
+    <div class="rd-empty text-center"><div class="rd-empty-icon">&#128101;</div><h2 class="rd-h2">No enrolments yet</h2><p class="rd-muted">Participants will appear here as soon as they enrol.</p></div>
+}
+else
+{
+    <div class="card"><div class="table-responsive">
+    <table class="table rd-table align-middle mb-0">
+        <thead><tr><th>Participant</th><th>Email</th><th>Category</th><th>Enrolled on</th><th>Status</th></tr></thead>
+        <tbody>
+        @foreach (var e in Model.OrderBy(x => x.ParticipantName))
+        {
+            <tr>
+                <td><strong>@e.ParticipantName</strong></td>
+                <td class="rd-muted">@e.ParticipantEmail</td>
+                <td>@e.CategoryName</td>
+                <td>@e.EnrolmentDate.ToString("dd MMM yyyy")</td>
+                <td><partial name="_StatusBadge" model="@e.Status" /></td>
+            </tr>
+        }
+        </tbody>
+    </table></div></div>
+}

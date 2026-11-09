@@ -1,12 +1,12 @@
 namespace RaceDay.Api.Models;
 
-/// <summary>The two roles in RaceDay.</summary>
+
 public static class AppRoles
 {
     public const string Organiser = "Organiser";
     public const string Participant = "Participant";
 
-    /// <summary>Returns the canonical role name, or null if the value is not a valid role.</summary>
+    
     public static string? Normalise(string? role) => role?.Trim().ToLowerInvariant() switch
     {
         "organiser" => Organiser,
@@ -15,7 +15,7 @@ public static class AppRoles
     };
 }
 
-/// <summary>Allowed event types (run, walk or cycle).</summary>
+
 public static class EventTypes
 {
     public const string Run = "Run";

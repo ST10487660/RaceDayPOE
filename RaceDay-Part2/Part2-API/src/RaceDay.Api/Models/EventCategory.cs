@@ -1,6 +1,6 @@
 namespace RaceDay.Api.Models;
 
-/// <summary>Join entity: which categories are offered at which event.</summary>
+
 public class EventCategory
 {
     public int EventId { get; set; }

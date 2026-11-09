@@ -7,10 +7,6 @@ using RaceDay.Api.Data;
 
 namespace RaceDay.Api.Tests;
 
-/// <summary>
-/// Starts the real API in memory but swaps SQL Server for an isolated EF Core in-memory database,
-/// so tests are fast, repeatable and need no SQL Server (also true in GitHub Actions).
-/// </summary>
 public class RaceDayFactory : WebApplicationFactory<Program>
 {
     private readonly string _databaseName = "RaceDayTests-" + Guid.NewGuid();

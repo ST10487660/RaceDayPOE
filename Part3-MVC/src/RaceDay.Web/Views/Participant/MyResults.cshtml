@@ -1,0 +1,41 @@
+@model List<ApiResultItem>
+@{
+    ViewData["Title"] = "My Results";
+}
+<h1 class="rd-h1">My Results</h1>
+<p class="rd-muted mb-4">Your race history across completed events.</p>
+
+@if (Model.Count == 0)
+{
+    <div class="rd-empty text-center">
+        <div class="rd-empty-icon">&#127941;</div>
+        <h2 class="rd-h2">No results yet</h2>
+        <p class="rd-muted">Results appear here after an organiser captures them once your event is finished.</p>
+        <a class="btn btn-primary" asp-controller="Participant" asp-action="MyEvents">See my events</a>
+    </div>
+}
+else
+{
+    <div class="card"><div class="table-responsive">
+    <table class="table rd-table align-middle mb-0">
+        <thead><tr><th>Event</th><th>Date</th><th>Category</th><th>Finish time</th><th>Position</th></tr></thead>
+        <tbody>
+        @foreach (var r in Model.OrderByDescending(x => x.EventDate))
+        {
+            <tr>
+                <td><a asp-controller="Events" asp-action="Details" asp-route-id="@r.EventId" class="rd-link">@r.EventName</a></td>
+                <td>@r.EventDate.ToString("dd MMM yyyy")</td>
+                <td>@r.CategoryName</td>
+                <td class="rd-mono">@ViewHelpers.FormatTime(r.FinishTime)</td>
+                <td>
+                    @if (r.Position.HasValue)
+                    {
+                        <span class="rd-position"><strong>@ViewHelpers.Ordinal(r.Position.Value)</strong> out of @r.TotalFinishers</span>
+                    }
+                    else { <span>-</span> }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table></div></div>
+}

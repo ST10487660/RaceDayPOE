@@ -1,0 +1,126 @@
+@model EventDetailsViewModel
+@inject ICurrentUser CurrentUser
+@inject IAssetUrlResolver Assets
+@{
+    var ev = Model.Event;
+    ViewData["Title"] = ev.EventName;
+    var banner = Assets.Resolve(ev.BannerImageUrl);
+    var spotsLeft = Math.Max(0, ev.MaxParticipants - ev.EnrolledCount);
+    var upcoming = ev.EventDate >= ViewHelpers.Today;
+}
+
+<div class="rd-detail-banner mb-4">
+    @if (banner != null)
+    {
+        <img src="@banner" alt="Banner for @ev.EventName" />
+    }
+    else
+    {
+        <div class="rd-banner-placeholder type-@ev.EventType.ToLowerInvariant() rd-banner-large"><span>@ViewHelpers.TypeIcon(ev.EventType)</span></div>
+    }
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <span class="rd-type-pill">@ev.EventType</span>
+        <h1 class="rd-h1 mt-2">@ev.EventName</h1>
+        <p class="rd-lead">@(string.IsNullOrWhiteSpace(ev.Description) ? "More details coming soon." : ev.Description)</p>
+
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3"><div class="rd-fact"><small>Date</small><strong>@ev.EventDate.ToString("dd MMM yyyy")</strong></div></div>
+            <div class="col-6 col-md-3"><div class="rd-fact"><small>Location</small><strong>@ev.Location</strong></div></div>
+            <div class="col-6 col-md-3"><div class="rd-fact"><small>Distance</small><strong>@ev.DistanceKm.ToString("0.##") km</strong></div></div>
+            <div class="col-6 col-md-3"><div class="rd-fact"><small>Spots left</small><strong>@spotsLeft of @ev.MaxParticipants</strong></div></div>
+        </div>
+
+        <h2 class="rd-h2">Categories</h2>
+        @if (ev.Categories.Count == 0)
+        {
+            <p class="rd-muted">No categories have been added for this event yet.</p>
+        }
+        else
+        {
+            <ul class="list-group mb-4">
+                @foreach (var c in ev.Categories)
+                {
+                    <li class="list-group-item"><strong>@c.CategoryName</strong>@if (!string.IsNullOrWhiteSpace(c.Description)) { <span class="rd-muted"> &middot; @c.Description</span> }</li>
+                }
+            </ul>
+        }
+
+        @if (ev.Route != null)
+        {
+            <h2 class="rd-h2">Route</h2>
+            <p><strong>@ev.Route.RouteName</strong> &middot; @ev.Route.DistanceKm.ToString("0.##") km<br />
+               <span class="rd-muted">Start: @ev.Route.StartPoint &rarr; Finish: @ev.Route.EndPoint</span></p>
+        }
+
+        @if (Model.Weather != null)
+        {
+            <h2 class="rd-h2">Weather outlook</h2>
+            <p>@Model.Weather.Conditions @(Model.Weather.TemperatureC.HasValue ? $"· {Model.Weather.TemperatureC:0.#}°C" : "") @(Model.Weather.WindSpeedKph.HasValue ? $"· wind {Model.Weather.WindSpeedKph:0.#} km/h" : "")</p>
+        }
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card rd-enrol-card">
+            <div class="card-body">
+                <h2 class="rd-h2">Enter this event</h2>
+                @if (!CurrentUser.IsAuthenticated)
+                {
+                    <p class="rd-muted">Log in as a participant to enrol.</p>
+                    <a class="btn btn-primary w-100 mb-2" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@($"/Events/Details/{ev.EventId}")">Log in to enrol</a>
+                    <a class="btn btn-outline-secondary w-100" asp-controller="Account" asp-action="Register">Create an account</a>
+                }
+                else if (CurrentUser.IsOrganiser)
+                {
+                    <p class="rd-muted">You are logged in as an Organiser. Only Participant accounts can enrol.</p>
+                    @if (ev.OrganiserId == CurrentUser.UserId)
+                    {
+                        <a class="btn btn-primary w-100 mb-2" asp-controller="Organiser" asp-action="EditEvent" asp-route-id="@ev.EventId">Edit this event</a>
+                        <a class="btn btn-outline-secondary w-100" asp-controller="Organiser" asp-action="Enrolments" asp-route-id="@ev.EventId">View enrolments</a>
+                    }
+                }
+                else if (Model.MyEnrolment != null)
+                {
+                    <p>You are enrolled in <strong>@Model.MyEnrolment.CategoryName</strong>.</p>
+                    <p>Status: <partial name="_StatusBadge" model="@Model.MyEnrolment.Status" /></p>
+                    @if (upcoming)
+                    {
+                        <form asp-controller="Participant" asp-action="CancelEnrolment" method="post" onsubmit="return confirm('Cancel your enrolment for this event?');">
+                            <input type="hidden" name="enrolmentId" value="@Model.MyEnrolment.EnrolmentId" />
+                            <button type="submit" class="btn btn-outline-danger w-100">Cancel enrolment</button>
+                        </form>
+                    }
+                }
+                else if (!upcoming)
+                {
+                    <p class="rd-muted">This event has already taken place.</p>
+                }
+                else if (spotsLeft == 0)
+                {
+                    <p class="rd-muted">Sorry, this event is full.</p>
+                }
+                else if (ev.Categories.Count == 0)
+                {
+                    <p class="rd-muted">Enrolment opens once the organiser adds categories.</p>
+                }
+                else
+                {
+                    <form asp-controller="Participant" asp-action="Enrol" method="post">
+                        <input type="hidden" name="eventId" value="@ev.EventId" />
+                        <label class="form-label" for="categoryId">Choose your category</label>
+                        <select class="form-select mb-3" id="categoryId" name="categoryId" required>
+                            <option value="">Select a category...</option>
+                            @foreach (var c in ev.Categories)
+                            {
+                                <option value="@c.CategoryId">@c.CategoryName</option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-primary w-100">Enrol now</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

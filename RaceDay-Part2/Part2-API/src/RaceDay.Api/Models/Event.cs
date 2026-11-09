@@ -9,6 +9,7 @@ public class Event
     public string? Description { get; set; }
     public DateOnly EventDate { get; set; }
     public string Location { get; set; } = string.Empty;
+    public string? BannerImageUrl { get; set; }
     /// <summary>Run, Walk or Cycle.</summary>
     public string EventType { get; set; } = EventTypes.Run;
     public decimal DistanceKm { get; set; }
