@@ -21,6 +21,7 @@ public class EventRequest
     /// <example>Johannesburg, Gauteng</example>
     [Required, StringLength(200)]
     public string Location { get; set; } = string.Empty;
+    
 
     /// <summary>Run, Walk or Cycle.</summary>
     /// <example>Run</example>
@@ -48,6 +49,7 @@ public class EventDto
     public string? Description { get; set; }
     public DateOnly EventDate { get; set; }
     public string Location { get; set; } = string.Empty;
+        public string? BannerImageUrl { get; set; }
     public string EventType { get; set; } = string.Empty;
     public decimal DistanceKm { get; set; }
     public int MaxParticipants { get; set; }

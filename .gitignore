@@ -1,0 +1,8 @@
+**/.vs/
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+*.user
+*.suo
+**/wwwroot/uploads/

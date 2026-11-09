@@ -28,6 +28,7 @@ public static class EventMapper
         Description = e.Description,
         EventDate = e.EventDate,
         Location = e.Location,
+        BannerImageUrl = e.BannerImageUrl,
         EventType = e.EventType,
         DistanceKm = e.DistanceKm,
         MaxParticipants = e.MaxParticipants,
