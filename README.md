@@ -1,46 +1,61 @@
-# RaceDay — Part 1
+# RaceDay — Full-Stack Event Management System
 
-RaceDay is a full-stack event management system for South African running, walking and cycling events. The system allows event organisers to manage events, categories, enrolments and participant results, while participants can browse events, enter events and track their performance.
+RaceDay is a full-stack event management system for South African running, walking and cycling events. It allows organisers to manage sporting events, categories, participant enrolments and results, while participants can browse events, enrol and track their performance.
 
-Part 1 focuses on planning and database design before application code is written. No API code is implemented in Part 1.
+The project was developed in three parts:
 
-## Part 1 Deliverables
+- **Part 1:** Project planning, database design and API endpoint planning.
+- **Part 2:** ASP.NET Core RESTful Web API, database integration and authentication.
+- **Part 3:** ASP.NET Core MVC web application that communicates with the Part 2 API.
 
-The `/docs` folder contains:
+## Project Structure
 
-- `RaceDay_ERD.png` — Entity Relationship Diagram showing the RaceDay database structure and relationships.
-- `RaceDay_API_Endpoint_Plan.md` — REST API endpoint plan for the API that will be implemented in Part 2.
-- `RaceDay_API_Endpoint_Plan.pdf` — PDF version of the API endpoint plan.
+```text
+RaceDayPOE-GitHub/
+│
+├── docs/
+│   ├── RaceDay_ERD.png
+│   ├── RaceDay_API_Endpoint_Plan.md
+│   ├── RaceDay_API_Endpoint_Plan.pdf
+│   └── RaceDay_Database.sql
+│
+├── RaceDay-Part2/
+│   └── Part2-API/
+│       ├── RaceDay.sln
+│       ├── src/
+│       │   └── RaceDay.Api/
+│       └── tests/
+│           └── RaceDay.Api.Tests/
+│
+├── Part3-MVC/
+│   ├── RaceDay.Web.sln
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   └── src/
+│       └── RaceDay.Web/
+│
+└── .github/
+    └── workflows/
+```
+
+## Part 1 — Planning and Database Design
+
+Part 1 focused on planning the system before application development.
+
+The `docs` folder contains:
+
+- `RaceDay_ERD.png` — Entity Relationship Diagram.
+- `RaceDay_API_Endpoint_Plan.md` — REST API endpoint plan.
+- `RaceDay_API_Endpoint_Plan.pdf` — PDF version of the endpoint plan.
 - `RaceDay_Database.sql` — SQL Server database creation and sample data script.
 
-## User Roles
+### Database Design
 
-### Organiser
-
-The Organiser is responsible for managing RaceDay events. An Organiser can:
-
-- Create, edit and delete events.
-- Manage event categories.
-- View event enrolments.
-- Capture and update participant results.
-
-### Participant
-
-The Participant uses RaceDay to find and enter events. A Participant can:
-
-- Register and log in.
-- Browse available events.
-- Enter an event by selecting a category.
-- View their own event enrolments.
-- Track their personal results.
-
-## Database Design
-
-The RaceDay database was designed using Microsoft SQL Server.
+The database uses Microsoft SQL Server.
 
 Database name: `RaceDayDB`
 
-The database contains eight entities:
+The database contains eight main entities:
 
 1. Users
 2. Events
@@ -51,192 +66,299 @@ The database contains eight entities:
 7. Results
 8. Weather
 
-The SQL script includes primary keys, foreign keys and database constraints. It also inserts sample data including two organisers, two participants, three events, event categories, enrolments, results, routes and weather information.
+### Database Setup
 
-## Database Setup Instructions
-
-### Requirements
-
-Before running the database script, install:
-
+Requirements:
 - Microsoft SQL Server
 - SQL Server Management Studio (SSMS)
 
-### Running the Database
+Steps:
 
-1. Clone or download the RaceDay repository.
-2. Open SQL Server Management Studio.
-3. Connect to a SQL Server instance.
-4. Open `docs/RaceDay_Database.sql`.
-5. Click **Execute** to run the complete script.
-6. The script will create the `RaceDayDB` database and its required tables.
-7. After execution, refresh the **Databases** folder in Object Explorer.
-8. Expand `RaceDayDB` and then **Tables** to view the created tables.
-9. The verification queries at the end of the script display the sample records inserted into the database.
+1. Open SSMS and connect to your SQL Server instance.
+2. Open `docs/RaceDay_Database.sql`.
+3. Execute the SQL script.
+4. Refresh the Databases folder.
+5. Expand `RaceDayDB` and check the tables.
 
-The SQL script has been designed so that it can be re-run during testing by dropping the RaceDay tables in dependency order before recreating them.
+The SQL script creates the database structure and inserts sample data.
 
-## API Planning
+### Part 1 Video
 
-No REST API code is implemented in Part 1.
-
-The planned REST API endpoints are documented in:
-
-`docs/RaceDay_API_Endpoint_Plan.md`
-
-The endpoint plan covers:
-
-- Authentication
-- User profiles
-- Events
-- Categories
-- Event enrolments
-- Results
-- Routes
-- Weather information
-
-The Part 2 C# REST API will follow this endpoint plan. Any deliberate changes made during Part 2 will be documented.
-
-## GitHub Actions
-
-GitHub Actions is used to validate the Part 1 repository structure.
-
-The workflow is located at:
-
-`.github/workflows/validate-part1.yml`
-
-The workflow checks that the README and required Part 1 files are present in the repository.
-
-## CI/CD Screenshot
-
-<img width="1002" height="464" alt="Successful RaceDay Part 1 GitHub Actions build" src="https://github.com/user-attachments/assets/a915da3a-146c-4c58-9a76-14d4bd9371ac" />
-
-The screenshot above shows the successful GitHub Actions validation with a green build.
-
-## Video Presentation
-
-The Part 1 video presentation demonstrates and explains:
-
-1. The purpose of RaceDay.
-2. The Organiser and Participant roles.
-3. The Entity Relationship Diagram.
-4. The REST API endpoint plan.
-5. The SQL Server database design and sample data.
-6. The GitHub repository structure.
-7. The successful GitHub Actions workflow.
-
-YouTube video (unlisted):
+Unlisted YouTube video:
 
 https://youtu.be/X8XoADVUu0w
 
+---
 
-# RaceDay — Part 2: RESTful API
+## Part 2 — RESTful API
 
-The Part 2 solution lives in the [`Part2-API`](Part2-API) folder. It is an ASP.NET Core Web API (C#, .NET 8) using Entity Framework Core (Code-First) with SQL Server, session-based authentication with two roles, Swagger, xUnit tests and a GitHub Actions CI workflow.
+Part 2 implements the backend using ASP.NET Core Web API, C#, .NET 8, Entity Framework Core and SQL Server.
 
-```
-Part2-API/
-  RaceDay.sln
-  src/RaceDay.Api/            the API (Controllers, Models, Dtos, Data, Mapping, Infrastructure)
-  tests/RaceDay.Api.Tests/    xUnit integration-style unit tests
-.github/workflows/part2-ci.yml  builds and tests on every push
-```
+The API handles the application's business logic, authentication, database operations and data management.
 
-## Setup and run instructions
+### Main Features
 
-**Requirements:** .NET 8 SDK, Microsoft SQL Server, SQL Server Management Studio (SSMS), and Visual Studio 2022 or the `dotnet` CLI.
+- User registration and login.
+- Session-based authentication.
+- Organiser and Participant roles.
+- Event management.
+- Category management.
+- Participant enrolments.
+- Event results.
+- Routes and weather information.
+- Event banner upload endpoint.
+- Swagger API documentation.
+- Automated tests using xUnit.
 
-### 1. Create the database in SSMS
+### Authentication and Security
 
-1. Open SSMS and connect to the SQL Server instance you intend to use.
-2. Open `docs/RaceDay_Database.sql` from this repository.
-3. **Important:** this script drops and recreates the RaceDay tables. Back up any data you need before executing it.
-4. Execute the script and confirm it completes without errors.
-5. Refresh `RaceDayDB` in Object Explorer and check that the eight tables exist.
+The API uses ASP.NET Core cookie authentication and role-based authorisation.
 
-The Part 2 database script includes the Part 1 schema plus `EventType` and `DistanceKm` columns in `Events`. Keep the ERD and endpoint documentation consistent with these changes.
+- Organisers can manage their own events.
+- Participants can browse and enrol in events.
+- Passwords are securely hashed.
+- Unauthenticated requests receive `401 Unauthorized`.
+- Users without the required permissions receive `403 Forbidden`.
 
-### 2. Point the API to the same SQL Server instance
+Organiser registration requires an invitation code.
 
-Open `Part2-API/src/RaceDay.Api/appsettings.json` and update `ConnectionStrings:RaceDayDb` so `Server=...` matches the server name you used in SSMS. The default connection string targets LocalDB: `(localdb)\MSSQLLocalDB`. If you connected to a different SQL Server instance in SSMS, replace that server value. Keep `Database=RaceDayDB` and the remaining options unless your setup requires otherwise.
+### Part 2 Setup
 
-The API uses Entity Framework Core with the existing SQL schema. When it starts, it will not overwrite existing table data. If the database contains the sample placeholder password hashes from the SQL script, the API replaces those specific demo placeholders with usable password hashes; it does not replace existing non-placeholder password hashes.
+Requirements:
 
-### 3. Run the API
+- .NET 8 SDK
+- Microsoft SQL Server
+- SSMS
+- Visual Studio 2022 or .NET CLI
 
-From the repository root, run:
+1. Open `docs/RaceDay_Database.sql` in SSMS.
+2. Execute the script to create the database.
+3. Open `RaceDay-Part2/Part2-API/src/RaceDay.Api/appsettings.json`.
+4. Update the `RaceDayDb` connection string to match your SQL Server instance.
+5. Open a terminal in the repository root.
+
+Run the API:
 
 ```bash
-dotnet run --project Part2-API/src/RaceDay.Api --launch-profile http
+dotnet run --project RaceDay-Part2/Part2-API/src/RaceDay.Api --launch-profile http
 ```
 
-Swagger UI should be available at **http://localhost:5080/swagger**. Use `POST /api/v1/auth/login` to log in before testing protected endpoints.
+Swagger:
 
-**Demo accounts (password `Password123!`):** `naledi.organiser@raceday.co.za` (Organiser), `thabo.organiser@raceday.co.za` (Organiser), `lerato.participant@raceday.co.za` (Participant), `kabelo.participant@raceday.co.za` (Participant).
+http://localhost:5080/swagger
 
-### 4. Run the tests
-
-Run:
+### Running API Tests
 
 ```bash
-dotnet test Part2-API/RaceDay.sln
+dotnet test RaceDay-Part2/Part2-API/RaceDay.sln
 ```
 
-The tests use an in-memory database, so they do not require your SSMS database.
+The tests use an in-memory database.
 
-### Trying protected endpoints in Swagger
-Call `POST /api/v1/auth/login` first. The API sets a `RaceDay.Session` cookie and Swagger UI sends it automatically on every later request. Use `POST /api/v1/auth/logout` to end the session and try the other role.
+### Demo Accounts
 
-## The two roles
+Password: `Password123!`
 
-| | Organiser | Participant |
-|---|---|---|
-| Register / log in / view and update own profile | Yes | Yes |
-| View events, categories, route and weather | Yes | Yes |
-| Create, update, delete events (own events only) | **Yes** | No (403) |
-| Create, update, delete categories | **Yes** | No (403) |
-| View all enrolments for own events | **Yes** | No (403) |
-| Capture, correct, delete results for own events | **Yes** | No (403) |
-| Enrol in an event by choosing a category, cancel own enrolment | No (403) | **Yes** |
-| View own enrolments and own results | No (403) | **Yes** |
-
-Requests with no session receive `401 Unauthorized`; a logged-in user using the wrong role receives `403 Forbidden`.
-
-### How roles are managed at registration
-Anyone may register as a **Participant**. Registering as an **Organiser** also requires a secret **invite code** (`Registration:OrganiserInviteCode` in configuration). Without a valid code the API returns `403`. This stops people from simply choosing "Organiser" and gaining control over events and results. In production the code would be supplied through an environment variable or user-secrets rather than being committed.
-Local invite code for marking/demo purposes: `RACEDAY-ORGANISER-2026`.
-
-## Authentication and security
-- **Session management:** ASP.NET Core cookie authentication. After login the server issues an encrypted, `HttpOnly`, `SameSite=Lax` session cookie holding the user id and role, which is checked on every request (60 minute sliding expiry).
-- **Passwords** are hashed with ASP.NET Core's `PasswordHasher` (PBKDF2 with a per-user salt). The original password is never stored.
-- **Role-based authorisation** uses `[Authorize(Roles = ...)]`. Organisers can additionally only modify data on events they own.
-- Errors use a consistent JSON body `{ "statusCode": 400, "message": "..." }` without exposing internal details.
-
-## Deliberate changes to the Part 1 plan
-Part 1 promised that any deliberate changes would be documented. They are:
-
-| Change | Reason |
+| Email | Role |
 |---|---|
-| Session cookie instead of a returned access token. Added `POST /api/v1/auth/logout`. | The Part 2 brief requires session management. |
-| `POST /auth/register` accepts a `role` (and `organiserInviteCode` for Organisers) instead of always creating a Participant. | The brief requires users to choose their role; the invite code controls Organiser access. |
-| `Events` gained `EventType` (Run/Walk/Cycle) and `DistanceKm` columns; `docs/RaceDay_Database.sql` was updated to match. **The ERD in `docs` must show these two columns too.** | The brief requires each event to capture distance and event type. |
-| All routes use the `/api/v1/` prefix (the access-control section of the plan mentioned `/api/users/me`). | Consistency with the versioning rule in the plan. |
-| `DELETE /enrolments/{id}` marks the enrolment `Cancelled` rather than deleting the row; a cancelled participant may enrol again. | Keeps history and respects the unique (participant, event) constraint. |
-| Organisers can only modify, and view enrolments/results for, **their own** events. | "Organisers must be able to view enrolments for *their* events." |
-| `POST /events/{id}/results` requires both `position` and `finishTime`. | The brief requires finish times and finishing positions to be captured. |
-| `GET /events` accepts an optional `includePast=true` query parameter. | Convenience; the default still lists upcoming events only. |
+| naledi.organiser@raceday.co.za | Organiser |
+| thabo.organiser@raceday.co.za | Organiser |
+| lerato.participant@raceday.co.za | Participant |
+| kabelo.participant@raceday.co.za | Participant |
 
-## Unit tests
-The tests (`Part2-API/tests/RaceDay.Api.Tests`) start the real API in memory with an in-memory EF Core database and make real HTTP calls. They cover: registration and login (success, duplicates, validation, hashed password, invite code), event management (create/update/delete, ownership), role rejection (403) and missing session (401) for every protected endpoint, enrolments (success, recorded correctly, duplicates, full events, cancellation), results, and a Swagger test that checks every endpoint from the Part 1 plan exists in the generated API document.
+Local organiser invitation code: `RACEDAY-ORGANISER-2026`.
 
-## GitHub Actions (Part 2)
-`.github/workflows/part2-ci.yml` restores, builds and runs all tests on every push.
+### Part 2 Video
 
-### CI/CD screenshot (Part 2)
-<img width="1376" height="846" alt="image" src="https://github.com/user-attachments/assets/c13e2a2b-5332-416a-bfb8-e90efb04cba9" />
+Unlisted YouTube video:
 
-
-## Part 2 video (unlisted YouTube)
 https://youtu.be/yPW2g5p8Hhs
 
+---
 
+## Part 3 — ASP.NET Core MVC Web Application
+
+Part 3 introduces the MVC web application that provides the user interface for RaceDay.
+
+The MVC application communicates with the Part 2 REST API through HTTP requests. It does not directly access the SQL Server database.
+
+### Main Features
+
+**Authentication**
+- User registration and login.
+- Session-based authentication.
+- Role-based navigation.
+- Protected pages.
+- Logout functionality.
+
+**Organiser functionality**
+- Organiser dashboard.
+- Create, view, edit and delete events.
+- Manage event categories.
+- View participant enrolments.
+- Manage event results.
+- Upload event banner images.
+
+**Participant functionality**
+- Browse available events.
+- View event details and categories.
+- Enrol in events.
+- View personal event enrolments.
+- Track enrolment status.
+- View personal results.
+- Update profile information.
+
+### MVC and API Integration
+
+The MVC application uses an API client to communicate with the backend.
+
+The general architecture is:
+
+```text
+User
+  |
+  v
+Part 3 - ASP.NET Core MVC
+  |
+  | HTTP Requests
+  v
+Part 2 - ASP.NET Core Web API
+  |
+  v
+Entity Framework Core
+  |
+  v
+SQL Server Database
+```
+
+This separates the presentation layer from the backend business logic and database operations.
+
+### Running Part 3 Locally
+
+Requirements:
+
+- .NET 8 SDK
+- Visual Studio 2022 or .NET CLI
+- SQL Server
+- A configured and running Part 2 API
+
+First, start the Part 2 API using the instructions above.
+
+Then open another terminal from the repository root and run:
+
+```bash
+dotnet run --project Part3-MVC/src/RaceDay.Web
+```
+
+The MVC application should be available at:
+
+http://localhost:5090
+
+The MVC application uses the API base URL configured in its `appsettings.json`. By default, the local configuration connects to:
+
+`http://localhost:5080`
+
+Both applications must be running for the full system to work.
+
+---
+
+## Event Banner Upload
+
+Organisers can upload banner images for their events through the MVC application.
+
+The MVC application sends the uploaded image to the Part 2 API using a multipart HTTP request.
+
+The API validates the uploaded file and stores the image in its local `wwwroot/uploads/banners` directory. The resulting image URL is saved with the event and displayed in the MVC application.
+
+**Storage note:** The current implementation uses local file storage. Azure Blob Storage integration is not included in this implementation.
+
+---
+
+## Docker
+
+The Part 3 MVC project includes:
+
+- `Part3-MVC/Dockerfile`
+- `Part3-MVC/docker-compose.yml`
+
+These files provide Docker configuration for containerising the MVC application.
+
+Docker Desktop and Docker Compose are required.
+
+From the repository root, the intended Compose command is:
+
+```bash
+docker compose -f Part3-MVC/docker-compose.yml up --build
+```
+
+The container must be configured to communicate with the API using a reachable API address rather than assuming that `localhost` inside the container refers to the host computer.
+
+To stop the containers:
+
+```bash
+docker compose -f Part3-MVC/docker-compose.yml down
+```
+
+---
+
+## GitHub Actions and Continuous Integration
+
+GitHub Actions is used to automate build validation.
+
+The workflows are stored in:
+
+`.github/workflows/`
+
+The Part 2 workflow is:
+
+`.github/workflows/part2-ci.yml`
+
+The repository also contains the Part 1 validation workflow:
+
+`.github/workflows/validate-part1.yml`
+
+These workflows support automated repository and application validation.
+
+---
+
+## Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| C# | Application development |
+| .NET 8 | Application framework |
+| ASP.NET Core Web API | Backend REST API |
+| ASP.NET Core MVC | Web application |
+| Entity Framework Core | Database access |
+| Microsoft SQL Server | Relational database |
+| SSMS | Database management |
+| Swagger | API documentation and testing |
+| xUnit | Automated testing |
+| HTML, CSS and JavaScript | Web interface |
+| Git and GitHub | Version control |
+| GitHub Actions | Continuous integration |
+| Docker | Application containerisation |
+
+---
+
+## Video Presentations
+
+**Part 1 — Planning and Database Design**
+
+https://youtu.be/X8XoADVUu0w
+
+**Part 2 — RESTful API**
+
+https://youtu.be/yPW2g5p8Hhs
+
+**Part 3 — MVC Application**
+
+[Insert your unlisted Part 3 YouTube video link here.]
+
+---
+
+## Conclusion
+
+RaceDay was developed as a full-stack event management system. Part 1 established the system requirements and database design, Part 2 implemented the backend REST API, and Part 3 introduced the MVC web application.
+
+Together, these components provide functionality for organisers and participants to manage and participate in South African sporting events.
